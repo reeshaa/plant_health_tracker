@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plant_health_tracker/components/plant_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -34,11 +35,37 @@ class _HomePageState extends State<HomePage> {
               width: size.width,
               height: size.height * 0.8,
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(35),
-                      topRight: Radius.circular(35))),
-            )
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(35),
+                  topRight: Radius.circular(35),
+                ),
+              ),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 100,
+                  ),
+                  Flexible(
+                    child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 1.4,
+                      ),
+                      itemCount: 5,
+                      itemBuilder: (BuildContext context, int index) {
+                        return PlantCard(
+                          plantName: 'Plant $index',
+                          imgUrl:
+                              'https://st.depositphotos.com/2632165/4026/i/450/depositphotos_40264933-stock-photo-young-plant.jpg',
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ]),
         ),
       ),
