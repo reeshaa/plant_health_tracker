@@ -12,14 +12,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          width: size.width,
-          decoration: const BoxDecoration(
-            color: Colors.green,
-          ),
-          child: Column(children: [
+    return Scaffold(
+      body: Container(
+        width: size.width,
+        decoration: const BoxDecoration(
+          color: Colors.green,
+        ),
+        child: Column(
+          children: [
             Container(
               padding: EdgeInsets.all(32),
               alignment: Alignment.centerLeft,
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-          ]),
+          ],
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:plant_health_tracker/plant_page.dart';
 
 class PlantCard extends StatelessWidget {
   final String? plantName;
@@ -23,16 +24,24 @@ class PlantCard extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12.0),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-          child: Container(
-            alignment: Alignment.center,
-            color: Colors.grey.withOpacity(0.1),
-            child: Text(
-              "CHOCOLATE",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
+          filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+          child: InkWell(
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PlantPage(),
+              ),
+            ),
+            child: Container(
+              alignment: Alignment.center,
+              color: Colors.grey.withOpacity(0.1),
+              child: Text(
+                plantName!,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
