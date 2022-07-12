@@ -1,4 +1,3 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_health_tracker/components/plant_card.dart';
 import 'package:plant_health_tracker/model/plant.dart';
@@ -15,101 +14,107 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    readData();
-  }
-
-  void readData() async {
-    final db = FirebaseDatabase.instance.ref('plantcare-7c507-default-rtdb');
-    db.onValue.listen((DatabaseEvent event) {
-      final data = event.snapshot.value;
-      print(data);
-    });
   }
 
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      body: Container(
-        width: size.width,
-        decoration: const BoxDecoration(
-          color: Colors.green,
-        ),
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.all(32),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "My Plants",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 32,
-                    fontWeight: FontWeight.w700),
-              ),
-            ),
-            Container(
-              width: size.width,
-              height: size.height * 0.8,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(35),
-                  topRight: Radius.circular(35),
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          width: size.width,
+          decoration: BoxDecoration(
+            color: Colors.green.shade300,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                padding: EdgeInsets.all(32),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "My Plants",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 35,
+                      fontWeight: FontWeight.w700),
                 ),
               ),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 100,
-                  ),
-                  Flexible(
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 1.4,
-                      ),
-                      itemCount: 5,
-                      itemBuilder: (BuildContext context, int index) {
-                        return PlantCard(
-                          plant: Plant.fromMap({
-                            "Pump_State": false,
-                            "plant_name": "Plant1",
-                            "img_url":
-                                "https://images.unsplash.com/photo-1567990989224-6441e1483ac8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aGliaXNjdXMlMjBmbG93ZXJ8ZW58MHx8MHx8&w=1000&q=80",
-                            "data": [
-                              {
-                                "Ambient_Light": 230,
-                                "Humidity": 77,
-                                "Soil_Moisture": 90,
-                                "Temperature": 32,
-                                "Timestamp": "2022-07-12 13:15:24"
-                              },
-                              {
-                                "Ambient_Light": 130,
-                                "Humidity": 12,
-                                "Soil_Moisture": 111,
-                                "Temperature": 19.5,
-                                "Timestamp": "2022-07-12 12:15:24"
-                              },
-                              {
-                                "Ambient_Light": 221,
-                                "Humidity": 70,
-                                "Soil_Moisture": 95,
-                                "Temperature": 29.5,
-                                "Timestamp": "2022-07-12 17:15:24"
-                              }
-                            ]
-                          }),
-                        );
-                      },
+              Expanded(
+                child: Container(
+                  width: size.width,
+                  // height: size.height * 0.8,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(35),
+                      topRight: Radius.circular(35),
                     ),
                   ),
-                ],
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(24.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                "It's a bright and sunny day today",
+                                style: TextStyle(
+                                    color: Colors.grey.shade600,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Expanded(
+                              child: Text(
+                                "24°C",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    color: Colors.grey.shade600,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Flexible(
+                        child: GridView.count(crossAxisCount: 2, children: [
+                          PlantCard(
+                            plantId: 'Plant1',
+                            name: 'Syngonium',
+                            imgUrl:
+                                'https://gardenerspath.com/wp-content/uploads/2022/01/How-to-Grow-Arrowhead-Vine-Cover.jpg',
+                          ),
+                          PlantCard(
+                            plantId: 'Plant2',
+                            name: 'Sevanthi',
+                            imgUrl:
+                                'https://www.gseller.co.uk/wp-content/uploads/2020/03/CHRYS.jpg',
+                          ),
+                          PlantCard(
+                            plantId: 'Plant2',
+                            name: 'Rose',
+                            imgUrl:
+                                'https://66.media.tumblr.com/b6d0fadd1983a8513ca66ce54dc5e1a4/tumblr_pb41a79oD81wcookgo4_500.jpg',
+                          ),
+                        ]),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("Team 8"),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

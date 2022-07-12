@@ -7,12 +7,17 @@ class StatsCard extends StatelessWidget {
   final String title;
 
   final Widget? actionWidget;
+  final double horizontalInterval2;
+
+  final Color color;
   StatsCard({
     Key? key,
     required this.yVals,
     required this.xVals,
     required this.title,
     this.actionWidget,
+    this.horizontalInterval2 = 10.0,
+    this.color = Colors.red,
   }) : super(key: key) {
     assert(xVals.length == yVals.length);
   }
@@ -60,7 +65,7 @@ class StatsCard extends StatelessWidget {
                       spots: points,
                       isCurved: false,
                       barWidth: 2,
-                      color: Colors.red,
+                      color: color,
                       dotData: FlDotData(
                         show: false,
                       ),
@@ -77,7 +82,7 @@ class StatsCard extends StatelessWidget {
                   gridData: FlGridData(
                     show: true,
                     drawVerticalLine: false,
-                    horizontalInterval: 10,
+                    horizontalInterval: horizontalInterval2,
                   ),
                   borderData: FlBorderData(
                       border:
