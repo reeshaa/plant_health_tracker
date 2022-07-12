@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_health_tracker/components/plant_card.dart';
 
@@ -10,8 +11,22 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    super.initState();
+    readData();
+  }
+
+  void readData() async {
+    final db = FirebaseDatabase.instance.ref('plantcare-7c507-default-rtdb');
+    db.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value;
+      print(data);
+    });
+  }
+
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Container(
         width: size.width,
