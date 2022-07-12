@@ -82,8 +82,6 @@ class _PlantPageState extends State<PlantPage> {
                   temperatureY.add(e.Temperature);
                 });
 
-                print('${plant.data.length} ${timestamps.length}');
-
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListView(
