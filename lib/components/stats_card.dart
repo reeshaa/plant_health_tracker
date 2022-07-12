@@ -55,31 +55,33 @@ class StatsCard extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 12),
             child: LineChart(
               LineChartData(
-                lineBarsData: [
-                  LineChartBarData(
-                    spots: points,
-                    isCurved: false,
-                    barWidth: 2,
-                    color: Colors.red,
-                    dotData: FlDotData(
-                      show: false,
+                  lineBarsData: [
+                    LineChartBarData(
+                      spots: points,
+                      isCurved: false,
+                      barWidth: 2,
+                      color: Colors.red,
+                      dotData: FlDotData(
+                        show: false,
+                      ),
+                    ),
+                  ],
+                  titlesData: FlTitlesData(
+                    topTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                    rightTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
                     ),
                   ),
-                ],
-                titlesData: FlTitlesData(
-                  topTitles: AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
+                  gridData: FlGridData(
+                    show: true,
+                    drawVerticalLine: false,
+                    horizontalInterval: 10,
                   ),
-                  rightTitles: AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
-                  ),
-                ),
-                gridData: FlGridData(
-                  show: true,
-                  drawVerticalLine: false,
-                  horizontalInterval: 2,
-                ),
-              ),
+                  borderData: FlBorderData(
+                      border:
+                          Border(bottom: BorderSide(), left: BorderSide()))),
             ),
           ),
         ],

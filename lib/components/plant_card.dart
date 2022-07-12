@@ -1,13 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:plant_health_tracker/model/plant.dart';
 import 'package:plant_health_tracker/plant_page.dart';
 
 class PlantCard extends StatelessWidget {
-  final String? plantName;
-  final String? imgUrl;
+  final Plant plant;
 
-  const PlantCard({Key? key, this.plantName, this.imgUrl}) : super(key: key);
+  const PlantCard({Key? key, required this.plant}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class PlantCard extends StatelessWidget {
       height: 20,
       decoration: BoxDecoration(
         image: new DecorationImage(
-          image: new NetworkImage(imgUrl!),
+          image: new NetworkImage(plant.img_url ?? ""),
           fit: BoxFit.cover,
         ),
         borderRadius: BorderRadius.circular(12.0),
@@ -29,14 +29,16 @@ class PlantCard extends StatelessWidget {
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => PlantPage(),
+                builder: (context) => PlantPage(
+                  plant: plant,
+                ),
               ),
             ),
             child: Container(
               alignment: Alignment.center,
               color: Colors.grey.withOpacity(0.1),
               child: Text(
-                plantName!,
+                plant.plant_name ?? "Untitled",
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,

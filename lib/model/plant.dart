@@ -1,25 +1,30 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 
-class PlantModel {
+import 'package:intl/intl.dart';
+
+class Plant {
   final List<Log> data;
   final bool Pump_State;
-  final String plant_name;
-  final String img_url;
+  final String? plant_name;
 
-  PlantModel({
+  final String? img_url;
+
+  Plant({
     required this.data,
     required this.Pump_State,
     required this.plant_name,
     required this.img_url,
   });
 
-  PlantModel copyWith({
+  Plant copyWith({
     List<Log>? data,
     bool? Pump_State,
     String? plant_name,
     String? img_url,
   }) {
-    return PlantModel(
+    return Plant(
       data: data ?? this.data,
       Pump_State: Pump_State ?? this.Pump_State,
       plant_name: plant_name ?? this.plant_name,
@@ -36,36 +41,27 @@ class PlantModel {
     };
   }
 
-  factory PlantModel.fromMap(Map<String, dynamic> map) {
-    return PlantModel(
+  factory Plant.fromMap(Map<String, dynamic> map) {
+    return Plant(
       data: List<Log>.from(
-        (map['data'] as List<int>).map<Log>(
+        (map['data'] as List<dynamic>).map<Log>(
           (x) => Log.fromMap(x as Map<String, dynamic>),
         ),
       ),
       Pump_State: map['Pump_State'] as bool,
-      plant_name: map['plant_name'] as String,
-      img_url: map['img_url'] as String,
+      plant_name: map['plant_name'] as String?,
+      img_url: map['img_url'] as String?,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory PlantModel.fromJson(String source) =>
-      PlantModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Plant.fromJson(String source) =>
+      Plant.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
     return 'PlantModel(data: $data, Pump_State: $Pump_State, plant_name: $plant_name, img_url: $img_url)';
-  }
-
-  @override
-  @override
-  int get hashCode {
-    return data.hashCode ^
-        Pump_State.hashCode ^
-        plant_name.hashCode ^
-        img_url.hashCode;
   }
 }
 
@@ -74,7 +70,7 @@ class Log {
   final int Humidity;
   final int Soil_Moisture;
   final double Temperature;
-  final String Timestamp;
+  final DateTime Timestamp;
   Log({
     required this.Ambient_Light,
     required this.Humidity,
@@ -88,7 +84,7 @@ class Log {
     int? Humidity,
     int? Soil_Moisture,
     double? Temperature,
-    String? Timestamp,
+    DateTime? Timestamp,
   }) {
     return Log(
       Ambient_Light: Ambient_Light ?? this.Ambient_Light,
@@ -115,7 +111,7 @@ class Log {
       Humidity: map['Humidity'].toInt() as int,
       Soil_Moisture: map['Soil_Moisture'].toInt() as int,
       Temperature: map['Temperature'].toDouble() as double,
-      Timestamp: map['Timestamp'] as String,
+      Timestamp: DateFormat('yyyy-MM-dd HH:mm:ss').parse(map['Timestamp']),
     );
   }
 

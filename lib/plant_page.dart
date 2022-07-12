@@ -3,13 +3,32 @@ import 'dart:ui';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+import 'package:plant_health_tracker/model/plant.dart';
+
 import 'components/stats_card.dart';
 
 class PlantPage extends StatelessWidget {
-  const PlantPage({Key? key}) : super(key: key);
-
+  final Plant plant;
+  const PlantPage({
+    Key? key,
+    required this.plant,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    // final List<double> timestamps = plant.data
+    //     .map((e) => e.Timestamp.millisecondsSinceEpoch.toDouble())
+    //     .toList();
+    final List<double> timestamps =
+        List.generate(plant.data.length, (index) => index.toDouble());
+    final List<double> lightY =
+        plant.data.map((e) => e.Ambient_Light.toDouble()).toList();
+    final List<double> humidityY =
+        plant.data.map((e) => e.Humidity.toDouble()).toList();
+    final List<double> soilMoistureY =
+        plant.data.map((e) => e.Soil_Moisture.toDouble()).toList();
+    final List<double> temperatureY =
+        plant.data.map((e) => e.Temperature.toDouble()).toList();
+    print(timestamps);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -22,7 +41,7 @@ class PlantPage extends StatelessWidget {
           ),
         ),
         title: Text(
-          "Anthurium",
+          plant.plant_name ?? "Title",
           style: TextStyle(
             fontSize: 26,
             fontWeight: FontWeight.w500,
@@ -34,7 +53,7 @@ class PlantPage extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
-              'https://st.depositphotos.com/2632165/4026/i/450/depositphotos_40264933-stock-photo-young-plant.jpg',
+              plant.img_url ?? "",
             ),
             fit: BoxFit.cover,
           ),
@@ -44,23 +63,31 @@ class PlantPage extends StatelessWidget {
           child: ListView(
             children: [
               StatsCard(
-                xVals: [1, 2.2, 3],
-                yVals: [0.9, 2.1, 5],
-                title: "Moisture",
-                actionWidget: ElevatedButton(
-                  onPressed: () {},
-                  child: Text("Water me"),
+                xVals: timestamps,
+                yVals: soilMoistureY,
+                title: "Soil Moisture",
+                actionWidget: Visibility(
+                  visible: !plant.Pump_State,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Text("Water me"),
+                  ),
                 ),
               ),
               StatsCard(
-                xVals: [1, 2, 3],
-                yVals: [0.3, 2.1, 3],
-                title: "Moisture",
+                xVals: timestamps,
+                yVals: lightY,
+                title: "Ambient Light",
               ),
               StatsCard(
-                xVals: [1, 2, 3],
-                yVals: [1.4, 2.2, 3.1],
-                title: "Moisture",
+                xVals: timestamps,
+                yVals: humidityY,
+                title: "Humidity",
+              ),
+              StatsCard(
+                xVals: timestamps,
+                yVals: temperatureY,
+                title: "Temperature",
               ),
             ],
           ),

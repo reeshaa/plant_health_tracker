@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_health_tracker/components/plant_card.dart';
+import 'package:plant_health_tracker/model/plant.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -10,6 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Plant>? plants;
   @override
   void initState() {
     super.initState();
@@ -71,9 +73,35 @@ class _HomePageState extends State<HomePage> {
                       itemCount: 5,
                       itemBuilder: (BuildContext context, int index) {
                         return PlantCard(
-                          plantName: 'Plant $index',
-                          imgUrl:
-                              'https://st.depositphotos.com/2632165/4026/i/450/depositphotos_40264933-stock-photo-young-plant.jpg',
+                          plant: Plant.fromMap({
+                            "Pump_State": false,
+                            "plant_name": "Plant1",
+                            "img_url":
+                                "https://images.unsplash.com/photo-1567990989224-6441e1483ac8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aGliaXNjdXMlMjBmbG93ZXJ8ZW58MHx8MHx8&w=1000&q=80",
+                            "data": [
+                              {
+                                "Ambient_Light": 230,
+                                "Humidity": 77,
+                                "Soil_Moisture": 90,
+                                "Temperature": 32,
+                                "Timestamp": "2022-07-12 13:15:24"
+                              },
+                              {
+                                "Ambient_Light": 130,
+                                "Humidity": 12,
+                                "Soil_Moisture": 111,
+                                "Temperature": 19.5,
+                                "Timestamp": "2022-07-12 12:15:24"
+                              },
+                              {
+                                "Ambient_Light": 221,
+                                "Humidity": 70,
+                                "Soil_Moisture": 95,
+                                "Temperature": 29.5,
+                                "Timestamp": "2022-07-12 17:15:24"
+                              }
+                            ]
+                          }),
                         );
                       },
                     ),

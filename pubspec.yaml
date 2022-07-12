@@ -37,6 +37,7 @@ dependencies:
   fl_chart: ^0.55.0
   firebase_core: ^1.19.1
   firebase_database: ^9.0.18
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
